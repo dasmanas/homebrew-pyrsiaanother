@@ -8,7 +8,7 @@ class Pyrsia < Formula
 
   def install
     bin.install "pyrsia"
-    bin.install "pyrsia_node"
+    # bin.install "pyrsia_node"
   end
 
   test do
