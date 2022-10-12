@@ -2,7 +2,7 @@ class Pyrsia < Formula
   desc "Open source software that helps protect the open source supply chain"
   homepage "https://pyrsia.io/"
   url "https://brewrepo.pyrsia.io/pyrsia-0.2.0.tar.gz"
-  sha256 "fb90ba908ec0b635a02eaf5ec9edeb42c6aac68df32c081219f8c2fa50f6e51a"
+  sha256 "14f1c4ecd537c37aebf26f695dad9827d3f2602af96368c7108e75a8bcd69fbc"
   license "Apache-2.0"
   version "0.2.0"
 
