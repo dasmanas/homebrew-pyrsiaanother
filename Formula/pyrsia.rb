@@ -10,8 +10,6 @@ class Pyrsia < Formula
     ENV.deparallelize
     bin.install "pyrsia"
     bin.install "pyrsia_node"
-    system "make"
-    system "make", "install", "PREFIX=#{prefix}"
   end
 
   service do
