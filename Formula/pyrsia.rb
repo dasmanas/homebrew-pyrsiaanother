@@ -7,8 +7,16 @@ class Pyrsia < Formula
   version "0.2.0"
 
   def install
+    ENV.deparallelize
     bin.install "pyrsia"
     bin.install "pyrsia_node"
+    system "make"
+    system "make", "install", "PREFIX=#{prefix}"
+  end
+
+  service do
+    run %w[pyrsia_node -H 0.0.0.0]
+    keep_alive true
   end
 
   test do
