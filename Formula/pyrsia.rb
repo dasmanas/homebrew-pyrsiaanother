@@ -12,6 +12,8 @@ class Pyrsia < Formula
     bin.install "pyrsia_node"
   end
 
+  plist_options startup: true
+
   service do
     run %w[pyrsia_node -H 0.0.0.0]
     keep_alive true
