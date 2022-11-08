@@ -18,7 +18,7 @@ class Pyrsia < Formula
     end
     run [opt_bin/"pyrsia_node"]
     run_type :immediate
-    process_type :background
+    process_type :standard
     environment_variables env_vars
   end
 
