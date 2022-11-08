@@ -16,7 +16,6 @@ class Pyrsia < Formula
     def env_vars
       {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
     end
-
     run [opt_bin/"pyrsia_node"]
     run_type :immediate
     process_type :background
