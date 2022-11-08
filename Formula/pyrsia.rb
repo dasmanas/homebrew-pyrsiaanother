@@ -16,7 +16,7 @@ class Pyrsia < Formula
     run [opt_bin/"pyrsia_node"]
     run_type :immediate
     process_type :background
-    environment_variables PATH: std_service_path_env.merge!("RUST_LOG": "info,pyrsia=debug")
+    environment_variables {:PATH => std_service_path_env, :RUST_LOG => "info,pyrsia=debug"}
   end
 
   test do
