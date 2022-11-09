@@ -17,8 +17,8 @@ class Pyrsia < Formula
     keep_alive true
     process_type :standard
     environment_variables RUST_LOG: "info,pyrsia=debug"
-    log_path "~/Library/Application Support/pyrsia/homebrew.mxcl.pyrsia.plist.log"
-    error_log_path "~/Library/Application Support/pyrsia/homebrew.mxcl.pyrsia.plist.error.log"
+    log_path "#{ENV["TMPDIR"]}/pyrsia/homebrew.mxcl.pyrsia.plist.log"
+    error_log_path "#{ENV["TMPDIR"]}/pyrsia/homebrew.mxcl.pyrsia.plist.error.log"
   end
 
   test do
