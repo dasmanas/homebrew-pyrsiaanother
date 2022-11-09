@@ -13,13 +13,10 @@ class Pyrsia < Formula
   end
 
   service do
-    def env_vars
-      {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
-    end
     run [opt_bin/"pyrsia_node"]
     keep_alive true
     process_type :standard
-    environment_variables env_vars
+    environment_variables RUST_LOG: "info,pyrsia=debug"
   end
 
   test do
