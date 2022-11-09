@@ -17,7 +17,7 @@ class Pyrsia < Formula
       {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
     end
     run [opt_bin/"pyrsia_node"]
-    run_type :immediate
+    keep_alive true
     process_type :standard
     environment_variables env_vars
   end
