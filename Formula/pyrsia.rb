@@ -19,8 +19,8 @@ class Pyrsia < Formula
     environment_variables RUST_LOG: "info,pyrsia=debug"
     log_path "#{ENV["TMPDIR"]}/pyrsia/homebrew.mxcl.pyrsia.plist.log"
     error_log_path "#{ENV["TMPDIR"]}/pyrsia/homebrew.mxcl.pyrsia.plist.error.log"
-    root_dir "/var/pyrsia"
-    working_dir "/var/pyrsia"
+    root_dir "#{ENV["TMPDIR"]}/pyrsia"
+    working_dir "#{ENV["TMPDIR"]}/pyrsia"
   end
 
   test do
