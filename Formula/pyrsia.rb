@@ -12,15 +12,22 @@ class Pyrsia < Formula
     bin.install "pyrsia_node"
   end
 
+  def post_install
+    (var/"pyrsia").mkpath
+  end
+
+
   service do
+    def envvarhash
+      return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
+    end
     run [opt_bin/"pyrsia_node"]
     keep_alive true
     process_type :standard
-    environment_variables RUST_LOG: "info,pyrsia=debug"
+    environment_variables envvarhash
     log_path "#{ENV["TMPDIR"]}/pyrsia/homebrew.mxcl.pyrsia.plist.log"
     error_log_path "#{ENV["TMPDIR"]}/pyrsia/homebrew.mxcl.pyrsia.plist.error.log"
-    root_dir "#{prefix}/pyrsia_rd"
-    working_dir "#{prefix}/pyrsia_rd/pyrsia_wd"
+    working_dir var/"pyrsia"
   end
 
   test do
