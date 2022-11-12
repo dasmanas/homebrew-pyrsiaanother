@@ -44,13 +44,15 @@ class Pyrsia < Formula
     # system bin/"pyrsia_node"
     # port = free_port
     child_pid = fork do
+      puts "Child process initiated to run pyrsia_node"
       puts "Child pid: #{Process.pid}, pgid: #{Process.getpgrp}"
       #setsid() creates a new session if the calling process is not a process group leader.
       Process.setsid
       puts "Child new pgid: #{Process.getpgrp}"
-      puts "Child: long operation..."
+      puts "Initiating pyrsia_node..."
       system "#{bin}/pyrsia_node"
     end
+    puts "Waiting for pyrsia_node to come up..."
     sleep 30
     assert_match "Connection Successful !!",
                  shell_output("#{bin}/pyrsia ping")
@@ -59,6 +61,5 @@ class Pyrsia < Formula
     Process.kill('HUP', -pgid)
     Process.detach(pgid)
     puts "Parent: exiting..."
-    sleep 10
   end
 end
