@@ -25,18 +25,18 @@ class Pyrsia < Formula
     s
   end
 
-  service do
-    def envvarhash
-      return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
-    end
-    run [opt_bin/"pyrsia_node"]
-    keep_alive true
-    process_type :background
-    environment_variables envvarhash
-    log_path var/"pyrsia/logs/stdout/pyrsia_node.log"
-    error_log_path var/"pyrsia/logs/stderr/pyrsia_node_err.log"
-    working_dir var/"pyrsia"
-  end
+  # service do
+  #   def envvarhash
+  #     return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
+  #   end
+  #   run [opt_bin/"pyrsia_node"]
+  #   keep_alive true
+  #   process_type :background
+  #   environment_variables envvarhash
+  #   log_path var/"pyrsia/logs/stdout/pyrsia_node.log"
+  #   error_log_path var/"pyrsia/logs/stderr/pyrsia_node_err.log"
+  #   working_dir var/"pyrsia"
+  # end
 
   test do
     (testpath/"pyrsia").mkpath
