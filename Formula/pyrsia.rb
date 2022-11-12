@@ -54,7 +54,7 @@ class Pyrsia < Formula
     end
     puts "Waiting for pyrsia_node to come up..."
     sleep 30
-    assert_match "Connection not Successful !!",
+    assert_match "Connection Successful !!",
                  shell_output("#{bin}/pyrsia ping")
     pgid = Process.getpgid(child_pid)
     puts "Sending HUP to group #{pgid}..."
