@@ -29,7 +29,7 @@ class Pyrsia < Formula
     def envvarhash
       return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
     end
-    run [bin/"pyrsia_node"]
+    run [opt_bin/"pyrsia_node"]
     keep_alive true
     process_type :background
     environment_variables envvarhash
