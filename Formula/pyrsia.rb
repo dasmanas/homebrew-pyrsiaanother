@@ -45,9 +45,6 @@ class Pyrsia < Formula
   test do
     (testpath/"pyrsia").mkpath
     (testpath/"tmp").mkpath
-    def envvarhashtest
-      return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
-    end
     child_pid = fork do
       puts "Child process initiated to run pyrsia_node"
       puts "Child pid: #{Process.pid}, pgid: #{Process.getpgrp}"
@@ -55,7 +52,6 @@ class Pyrsia < Formula
       Process.setsid
       puts "Child new pgid: #{Process.getpgrp}"
       puts "Initiating pyrsia_node..."
-      environment_variables envvarhashtest
       system "#{bin}/pyrsia_node"
     end
     puts "Waiting for pyrsia_node to come up..."
