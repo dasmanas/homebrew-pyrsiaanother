@@ -16,21 +16,49 @@ class Pyrsia < Formula
     (var/"pyrsia").mkpath
   end
 
+  def caveats
+    s = <<~EOS
+      We've installed your Pyrsia Node. It should be running as background service.
+      To check the service status:
+        brew services list
+    EOS
+    s
+  end
 
   service do
     def envvarhash
       return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
     end
-    run [opt_bin/"pyrsia_node"]
+    run [bin/"pyrsia_node"]
     keep_alive true
-    process_type :standard
+    process_type :background
     environment_variables envvarhash
-    log_path "#{ENV["TMPDIR"]}/pyrsia/homebrew.mxcl.pyrsia.plist.log"
-    error_log_path "#{ENV["TMPDIR"]}/pyrsia/homebrew.mxcl.pyrsia.plist.error.log"
+    log_path var/"pyrsia/logs/stdout/pyrsia_node.log"
+    error_log_path var/"pyrsia/logs/stderr/pyrsia_node_err.log"
     working_dir var/"pyrsia"
   end
 
   test do
-    system "false"
+    (testpath/"pyrsia").mkpath
+    (testpath/"tmp").mkpath
+    # system bin/"pyrsia_node"
+    # port = free_port
+    child_pid = fork do
+      puts "Child pid: #{Process.pid}, pgid: #{Process.getpgrp}"
+      #setsid() creates a new session if the calling process is not a process group leader.
+      Process.setsid
+      puts "Child new pgid: #{Process.getpgrp}"
+      puts "Child: long operation..."
+      system "#{bin}/pyrsia_node"
+    end
+    sleep 30
+    assert_match "Connection Successful !!",
+                 shell_output("#{bin}/pyrsia ping")
+    pgid = Process.getpgid(child_pid)
+    puts "Sending HUP to group #{pgid}..."
+    Process.kill('HUP', -pgid)
+    Process.detach(pgid)
+    puts "Parent: exiting..."
+    sleep 10
   end
 end
