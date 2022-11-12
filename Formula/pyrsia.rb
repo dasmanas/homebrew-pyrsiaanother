@@ -45,10 +45,10 @@ class Pyrsia < Formula
   test do
     (testpath/"pyrsia").mkpath
     (testpath/"tmp").mkpath
+    def envvarhashtest
+      return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
+    end
     child_pid = fork do
-      def envvarhashtest
-        return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
-      end
       puts "Child process initiated to run pyrsia_node"
       puts "Child pid: #{Process.pid}, pgid: #{Process.getpgrp}"
       #setsid() creates a new session if the calling process is not a process group leader.
