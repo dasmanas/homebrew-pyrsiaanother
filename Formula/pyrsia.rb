@@ -25,18 +25,18 @@ class Pyrsia < Formula
     s
   end
 
-  # service do
-  #   def envvarhash
-  #     return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
-  #   end
-  #   run [opt_bin/"pyrsia_node"]
-  #   keep_alive true
-  #   process_type :background
-  #   environment_variables envvarhash
-  #   log_path var/"pyrsia/logs/stdout/pyrsia_node.log"
-  #   error_log_path var/"pyrsia/logs/stderr/pyrsia_node_err.log"
-  #   working_dir var/"pyrsia"
-  # end
+  service do
+    def envvarhash
+      return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
+    end
+    run [opt_bin/"pyrsia_node"]
+    keep_alive true
+    process_type :background
+    environment_variables envvarhash
+    log_path var/"pyrsia/logs/stdout/pyrsia_node.log"
+    error_log_path var/"pyrsia/logs/stderr/pyrsia_node_err.log"
+    working_dir var/"pyrsia"
+  end
 
   test do
     (testpath/"pyrsia").mkpath
@@ -44,6 +44,9 @@ class Pyrsia < Formula
     # system bin/"pyrsia_node"
     # port = free_port
     child_pid = fork do
+      def envvarhash
+        return {PATH: std_service_path_env, RUST_LOG: "info,pyrsia=debug"}
+      end
       puts "Child process initiated to run pyrsia_node"
       puts "Child pid: #{Process.pid}, pgid: #{Process.getpgrp}"
       #setsid() creates a new session if the calling process is not a process group leader.
@@ -60,6 +63,6 @@ class Pyrsia < Formula
     puts "Sending HUP to group #{pgid}..."
     Process.kill('HUP', -pgid)
     Process.detach(pgid)
-    puts "Parent: exiting..."
+    puts "Parent process exiting..."
   end
 end
