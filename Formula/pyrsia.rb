@@ -18,7 +18,11 @@ class Pyrsia < Formula
 
   def caveats
     s = <<~EOS
-      We've installed your Pyrsia Node. It should be running as background service.
+      We've installed your Pyrsia Node.
+      To test Pyrsia installation:
+        brew test pyrsia
+      To run Pyrsia Node as a service:
+        brew services start pyrsia 
       To check the service status:
         brew services list
     EOS
